@@ -1,0 +1,18 @@
+{
+  "name": "api-design-assignment",
+  "version": "1.0.0",
+  "description": "API design",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnu.se:1dv027/student/tt222kj/api-design-assignment.git"
+  },
+  "author": "Thanh Tran",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.7.0"
+  }
+}
