@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "API design",
   "type": "module",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.0",
     "morgan": "^1.10.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "winston": "^3.5.1"
   }
 }
