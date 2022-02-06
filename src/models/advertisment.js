@@ -1,6 +1,7 @@
-// Mongooes model advertisement
+// Mongoose model advertisement
 import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
+import validator from 'validator'
 import { nanoid } from 'nanoid'
 
 const sanitize = value => validator.escape(value).trim()
@@ -9,7 +10,7 @@ const schema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: nanoid(),
+      default: nanoid(7),
     },
     publisher: {
       type: String,
