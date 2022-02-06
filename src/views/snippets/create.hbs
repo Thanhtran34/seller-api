@@ -1,0 +1,12 @@
+<h1>
+  <span class="far fa-plus-square">Create snippet</span> 
+</h1>
+   <form method="post" action="./snippets/create" class="snippet">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    <label for="title">title:</label>
+    <input type="text" name="title" placeholder="Snippet title"></input>
+    <label for="code">code:</label>
+    <textarea name="code" placeholder="Snippet code" rows="30"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+<a class="btn" href="./snippets/">CANCEL</a>

@@ -1,36 +1,51 @@
 {
-  "name": "api-design-assignment",
+  "name": "assignment-b1-crud-snippets",
   "version": "1.0.0",
-  "description": "API design",
+  "description": "CRUD snippet",
   "type": "module",
-  "main": "app.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.lnu.se:1dv027/student/tt222kj/api-design-assignment.git"
+    "url": "git@gitlab.lnu.se:1dv026/student/tt222kj/assignment-b1-crud-snippets.git"
   },
-  "author": "Thanh Tran",
+  "author": "Thanh Tran <tt222kj@student.lnu.se>",
   "license": "MIT",
-  "devDependencies": {
-    "dotenv": "^16.0.0",
-    "eslint": "^8.7.0",
-    "newman": "^5.3.1",
-    "nodemon": "^2.0.15"
-  },
+  "private": "true",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "cachegoose": "^8.0.0",
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.0",
+    "csurf": "^1.11.0",
+    "express": "^4.17.1",
+    "express-hbs": "^2.3.4",
+    "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
+    "http-errors": "^1.8.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.13",
     "morgan": "^1.10.0",
-    "validator": "^13.7.0",
-    "winston": "^3.5.1"
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.2",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^31.3.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "nodemon": "^2.0.7"
+  },
+  "eslintConfig": {
+    "extends": "@lnu"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,hbs,html,css"
   }
 }

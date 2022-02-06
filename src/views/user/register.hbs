@@ -1,0 +1,11 @@
+<h1>Welcome! Please enter your email and password to register an account:</h1>
+
+<form method="post" action="./user/register" class="snippet">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    <label for="email">Email/Username:</label>
+    <input type="email" name="email" placeholder="you@email.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,10}$" required></input>
+    <label for="password">password:</label>
+    <input name="password" placeholder="min 8 characters" minlength="8" required></input>
+    <button type="submit">Submit</button>
+</form>
+<a class="btn" href="./">CANCEL</a>
