@@ -1,11 +1,11 @@
 
  // The starting point of the API.
- 
+
  import express from 'express'
  import cors from 'cors'
  import helmet from 'helmet'
- import logger from 'morgan'
- import { router } from './routes/router.js'
+ import { logger } from './config/logger.js'
+ //import { router } from './routes/router.js'
  import { connectDB } from './config/mongoose.js'
  
  /**
@@ -19,8 +19,6 @@
    app.use(helmet())
  
    app.use(cors())
- 
-   app.use(logger('dev'))
  
    app.use(express.json({ limit: '500kb' }))
  
@@ -50,8 +48,8 @@
    })
  
    app.listen(process.env.PORT, () => {
-     console.log(`Server running at http://localhost:${process.env.PORT}`)
-     console.log('Press Ctrl-C to terminate...')
+     logger.info(`API run on port ${process.env.PORT}`)
+     logger.info('Press Ctrl-C to terminate...')
    })
  }
  
