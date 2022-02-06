@@ -9,7 +9,8 @@ import express from 'express'
 import hbs from 'express-hbs'
 import session from 'express-session'
 import helmet from 'helmet'
-import logger from 'morgan'
+import morgan from 'morgan'
+import { logger } from './config/logger.js'
 import csrf from 'csurf'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
@@ -40,7 +41,7 @@ const main = async () => {
   )
 
   // Set up a morgan logger using the dev format for log entries.
-  app.use(logger('dev'))
+  app.use(morgan('dev'))
 
   // View engine setup.
   app.engine('hbs', hbs.express4({
@@ -151,8 +152,8 @@ const main = async () => {
 
   // Starts the HTTP server listening for connections.
   app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT}`)
-    console.log('Press Ctrl-C to terminate...')
+    logger.info(`API is running at port ${process.env.PORT}`)
+    logger.info('Press Ctrl-C to terminate...')
   })
 }
 

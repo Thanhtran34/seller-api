@@ -6,6 +6,10 @@
  */
 
 import mongoose from 'mongoose'
+import cachegoose from 'cachegoose'
+import { logger } from './logger.js'
+
+cachegoose(mongoose)
 
 /**
  * Establishes a connection to a database.
@@ -14,20 +18,26 @@ import mongoose from 'mongoose'
  */
 export const connectDB = async () => {
   // Bind connection to events (to get notifications).
-  mongoose.connection.on('connected', () => console.log('Mongoose connection is open.'))
-  mongoose.connection.on('error', err => console.error(`Mongoose connection error has occurred: ${err}`))
-  mongoose.connection.on('disconnected', () => console.log('Mongoose connection is disconnected.'))
+  mongoose.connection.on('connected', () => logger.info('Mongoose connection is open.'))
+  mongoose.connection.on('error', err => logger.error(`Mongoose connection error has occurred: ${err}`))
+  mongoose.connection.on('disconnected', () => logger.info('Mongoose connection is disconnected.'))
 
   // If the Node process ends, close the Mongoose connection.
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-      console.log('Mongoose connection is disconnected due to application termination.')
+      logger.info('Mongoose connection is disconnected due to application termination.')
       process.exit(0)
     })
   })
 
+  const dbConnectionString = process.env.DB_CONNECTION_STRING
+
+  // Check if .env file exists
+  if (!dbConnectionString)
+    throw new Error('You need to provide database connection string in .env file.')
+
   // Connect to the server.
-  return mongoose.connect(process.env.DB_CONNECTION_STRING, {
+  return mongoose.connect(dbConnectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
