@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'
 import createError from 'http-errors'
+import bcrypt from 'bcrypt'
 import { nanoid } from 'nanoid'
 import { Ad } from './advertisment.js'
 import { Area } from './area.js'
@@ -17,7 +18,7 @@ const schema = new mongoose.Schema(
     area: {
       type: String,
       required: true,
-      ref: 'Area',
+      ref: "Area",
     },
     name: {
       type: String,
@@ -31,31 +32,37 @@ const schema = new mongoose.Schema(
       unique: true,
       required: true,
       validate: {
-        validator: v => validator.isEmail(v),
-        message: 'Invalid email',
+        validator: (v) => validator.isEmail(v),
+        message: "Invalid email",
       },
     },
     password: {
       type: String,
       required: true,
-    },
+    }
   },
   {
     timestamps: true,
-    toObject: { transform: (doc, ret) => ({ ...ret, password: undefined }) },
-  }
-)
+    versionKey: false,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret._id;
+      },
+      virtuals: true,
+    }
+  })
 
 // check if area exists
-schema.pre('save', async function(next) {
-  this.name = validator.escape(this.name)
-  const area = await Area.findById(this.area)
+schema.pre('save', async function (next) {
+  this.name = validator.escape(this.name);
+  this.password = await bcrypt.hash(this.password, 12)
+  const area = await Area.findById(this.area);
   if (!area) {
-    next(createError(403, `Invalid area ${this.area}`))
+    next(createError(403, `Invalid area ${this.area}`));
   }
 })
 
-schema.post('save', (doc, next) =>{
+schema.post('save', (doc, next) => {
   cachegoose.clearCache()
   next()
 })
@@ -69,13 +76,32 @@ schema.post('findOneAndDelete', async (doc, next) => {
 
 // Error for duplicate key
 schema.post('save', (error, doc, next) => {
-  if (error.name === 'MongoError' && error.code === 11000) {
+  if (error.name === "MongoError" && error.code === 11000) {
     const key = Object.keys(error.keyValue)[0]
     const value = error.keyValue[key]
-    next(createError(403, `${key} ${value} is already in use`))
+    next(createError(403, `${key} ${value} is already in use`));
   } else {
     next()
   }
 })
+
+schema.statics.authenticate = async function (email, password) {
+  const user = await this.findOne({ email })
+
+  // If no user found or password is wrong, throw an error.
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new Error('Invalid username or password.')
+  }
+  return user
+}
+
+schema.statics.getById = async function (id) {
+  return this.findOne({ _id: id })
+}
+
+schema.statics.insert = async function (userData) {
+  const user = new Publisher(userData)
+  return user.save()
+}
 
 export const Publisher = mongoose.model('Publisher', schema)

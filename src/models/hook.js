@@ -37,7 +37,7 @@ const schema = new mongoose.Schema(
         validator: v => validator.isURL(v),
         message: 'callback needs to be a valid URL',
       },
-    },
+    }
   },
   { timestamps: true }
 )

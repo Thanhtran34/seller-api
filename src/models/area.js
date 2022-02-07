@@ -14,7 +14,7 @@ const schema = new mongoose.Schema(
     population: {
       type: Number,
       required: true,
-    },
+    }
   },
   { timestamps: true }
 )
