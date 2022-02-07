@@ -10,7 +10,7 @@ passwordSchema.has().uppercase()
 passwordSchema.has().lowercase()
 passwordSchema.has().digits()
 
-export class Password {
+export class PasswordController {
   async hashPassword(req, res, next) {
     try {
       const password = req.body.password

@@ -42,12 +42,12 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 )
 
-schema.post('save', function(doc, next) {
+schema.post('save', (doc, next) => {
   cachegoose.clearCache()
   next()
 })
 
-schema.post('remove', function(doc, next) {
+schema.post('remove', (doc, next) => {
   cachegoose.clearCache()
   next()
 })

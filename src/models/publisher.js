@@ -51,16 +51,16 @@ schema.pre('save', async function(next) {
   this.name = validator.escape(this.name)
   const area = await Area.findById(this.area)
   if (!area) {
-    next(new ValidationError(`Invalid area ${this.area}`))
+    next(createError(403, `Invalid area ${this.area}`))
   }
 })
 
-schema.post('save', function(doc, next) {
+schema.post('save', (doc, next) =>{
   cachegoose.clearCache()
   next()
 })
 
-schema.post('findOneAndDelete', async function(doc, next) {
+schema.post('findOneAndDelete', async (doc, next) => {
   await Ad.deleteMany({ publisher: doc._id })
   await Hook.deleteMany({ publisher: doc._id })
   cachegoose.clearCache()
@@ -68,7 +68,7 @@ schema.post('findOneAndDelete', async function(doc, next) {
 })
 
 // Error for duplicate key
-schema.post('save', function(error, doc, next) {
+schema.post('save', (error, doc, next) => {
   if (error.name === 'MongoError' && error.code === 11000) {
     const key = Object.keys(error.keyValue)[0]
     const value = error.keyValue[key]
