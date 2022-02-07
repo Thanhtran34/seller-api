@@ -18,6 +18,7 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "cachegoose": "^8.0.0",
     "express": "^4.17.2",

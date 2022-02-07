@@ -1,4 +1,4 @@
-// create links 
+// links controller
 import { BASE_URL } from '../config/url.js'
 
 export class LinkController {
