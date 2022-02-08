@@ -3,13 +3,8 @@ import { Ad } from '../models/advertisment.js'
 import { Publisher } from '../models/publisher.js'
 import { LinkController } from './linkController.js'
 import { HookController } from './hookController.js'
+import { actions } from '../config/hookAction.js'
 import createError from 'http-errors'
-
-const actions = {
-  newAd: 'newAd',
-  newPublisher: 'newPublisher',
-}
-
 export class PublisherController {
   async getAllPublishers(req, res, next) {
     try {
