@@ -36,8 +36,16 @@
     "winston": "^3.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/eslint-parser": "^7.17.0",
+    "@lnu/eslint-config": "^1.1.4",
     "dotenv": "^16.0.0",
     "eslint": "^8.8.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.8.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^2.0.15"
   },
   "nodemonConfig": {
