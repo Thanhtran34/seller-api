@@ -17,7 +17,6 @@ export class AccountController {
       passwordSchema.has().digits()
       if (!passwordSchema.validate(password)) {
         createError(403, 'Your password must be at least 8 characters, max 100 chars and includes one lowercase, one uppercase, one digit.') 
-      
       }
       next()
     } catch (error) {
