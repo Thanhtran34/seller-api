@@ -97,7 +97,7 @@ export class AccountController {
 
       next()
     } catch (err) {
-      const authUrl = BASE_URL + '/auth'
+      const authUrl = BASE_URL + '/auth/login'
       return res
         .status(401)
         .header('WWW-Authenticate', 'Bearer')

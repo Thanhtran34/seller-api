@@ -1,7 +1,7 @@
 // Area Routes
 import express from 'express'
-import { AreaController } from '../controllers/areaController'
-import { addAllow } from '../controllers/allowHandle'
+import { AreaController } from '../controllers/areaController.js'
+import { addAllow } from '../controllers/allowHandle.js'
 
 export const router = express.Router()
 const areaController = new AreaController()

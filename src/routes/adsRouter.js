@@ -1,6 +1,6 @@
 // Advertisement routes
 import express from 'express'
-import { AdsController } from '../controllers/adsController'
+import { AdsController } from '../controllers/adsController.js'
 import { AccountController } from '../controllers/accountController.js'
 import { addAllow } from '../controllers/allowHandle.js'
 

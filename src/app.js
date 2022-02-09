@@ -8,6 +8,8 @@
 import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
+import compression from 'compression'
+import cors from 'cors'
 import { logger } from './config/logger.js'
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongoose.js'

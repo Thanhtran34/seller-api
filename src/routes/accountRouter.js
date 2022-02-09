@@ -15,7 +15,7 @@ router
 
 router
      .route('/login')
-     .all(resController.addAllow('GET, HEAD, OPTIONS'))
+     .all(addAllow('GET, HEAD, OPTIONS'))
      .post(
        (req, res, next) => accController.login(req, res, next)
      )
