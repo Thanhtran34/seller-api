@@ -1,4 +1,4 @@
-// mongoose model for publishers
+// Mongoose model for publishers
 import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'

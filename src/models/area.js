@@ -1,4 +1,4 @@
-// mongoose model for area
+// Mongoose model for area
 import mongoose from'mongoose'
 
 const schema = new mongoose.Schema(

@@ -1,4 +1,4 @@
-// mongoose model for webhook
+// Mongoose model for webhook
 import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'

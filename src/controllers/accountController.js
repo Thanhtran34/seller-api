@@ -55,13 +55,10 @@ export class AccountController {
         req.body.password
       )
 
-      const payload = {
-        sub: user.email,
-        id: user.id,
-      }
+      const payload = { id: user.id }
 
       // Create the access token with the shorter lifespan.
-      const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
         algorithm: 'HS256',
         expiresIn: 600,
       })
@@ -71,7 +68,7 @@ export class AccountController {
         .header('Cache-Control', 'no-store')
         .header('Pragma', 'no-cache')
         .json({
-          access_token: accessToken,
+          accessToken: token,
           tokenType: 'Bearer',
           expiresIn: 600,
           _links: LinkController.createLinkForPublisher(user),
@@ -91,14 +88,12 @@ export class AccountController {
     }
 
     try {
+      const token = authorization[1]
       const payload = jwt.verify(
-        authorization[1],
+        token,
         process.env.ACCESS_TOKEN_SECRET
       )
-      req.user = {
-        email: payload.sub,
-        id: payload.id,
-      }
+      req.token = payload
 
       next()
     } catch (err) {

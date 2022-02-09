@@ -1,9 +1,4 @@
-/**
- * The routes.
- *
- * @author Thanh Tran
- * @version 1.0.0
- */
+// The routes
 
 import express from 'express'
 import { router as adsRouter } from './adsRouter.js'

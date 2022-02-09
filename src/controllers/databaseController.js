@@ -8,7 +8,7 @@ import { Ad } from '../models/advertisment.js'
 const populateAreas = async () => {
   try {
     await connectDB.connect()
-    let data = fs.readFileSync('./data/areas.json')
+    let data = fs.readFileSync('./data/area.json')
     data = JSON.parse(data)
     let promises = []
     for (let item of data) {
