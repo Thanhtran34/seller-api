@@ -6,15 +6,20 @@
  */
 
 import express from 'express'
-import { router as homeRouter } from './homeRouter.js'
-import { router as snippetRouter } from './snippetsRouter.js'
-import { router as userRouter } from './userRouter.js'
+import { router as adsRouter } from './adsRouter.js'
+import { router as accountRouter } from './accountRouter.js'
+import { router as areaRouter } from './areaRouter.js'
+import { router as hookRouter } from './hookRouter.js'
+import { router as publisherRouter } from './publisherRouter.js'
 
 export const router = express.Router()
 
-router.use('/', homeRouter)
-router.use('/user', userRouter)
-router.use('/snippets', snippetRouter)
+router.use('/auth', accountRouter)
+router.use('/ads', adsRouter)
+router.use('/publishers', publisherRouter)
+router.use('/areas', areaRouter)
+router.use('/hooks', hookRouter)
+
 
 router.use('*', (req, res, next) => {
   const error = new Error()

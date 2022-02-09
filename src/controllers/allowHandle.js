@@ -1,12 +1,11 @@
-// Controller to add and handle allow methods to response object
+// Add and handle allow methods to response object
 
-export class ResponseController {
-  addAllow(allow, req, res, next) {
+  export const addAllow = allow => (req, res, next) => {
     req.allow = allow
     next()
   }
 
-  handleAllow(req, res, next) {
+  export const handleAllow= (req, res, next) => {
     try {
       if (req.method === 'OPTIONS') {
         return res
@@ -25,4 +24,3 @@ export class ResponseController {
       next(e)
     }
   }
-}
