@@ -1,7 +1,7 @@
 {
   "name": "api-design-assignment",
   "version": "1.0.0",
-  "description": "api for crud apps",
+  "description": "api for advertisement apps",
   "type": "module",
   "main": "src/app.js",
   "scripts": {
@@ -32,6 +32,7 @@
     "morgan": "^1.10.0",
     "nanoid": "^3.2.0",
     "password-validator": "^5.2.1",
+    "path": "^0.12.7",
     "validator": "^13.7.0",
     "winston": "^3.5.1"
   },

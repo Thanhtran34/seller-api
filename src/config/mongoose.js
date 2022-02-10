@@ -1,9 +1,4 @@
-/**
- * Mongoose configuration.
- *
- * @author Thanh Tran
- * @version 1.0.0
- */
+// Mongoose configuration.
 
 import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'

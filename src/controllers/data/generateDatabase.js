@@ -1,14 +1,18 @@
 // populate database for testing purpose
 import fs from 'fs'
-import { connectDB } from '../config/mongoose.js'
-import { Area } from '../models/area.js'
-import { Publisher } from '../models/publisher.js'
-import { Ad } from '../models/advertisment.js'
+import dotenv from 'dotenv'
+import { resolve } from 'path'
+import { connectDB } from '../../config/mongoose.js'
+import { Area } from '../../models/area.js'
+import { Publisher } from '../../models/publisher.js'
+import { Ad } from '../../models/advertisment.js'
+
+dotenv.config({path: resolve(process.cwd() + '/.env')})
 
 const populateAreas = async () => {
   try {
-    await connectDB.connect()
-    let data = fs.readFileSync('./data/area.json')
+    await connectDB()
+    let data = fs.readFileSync('./areas.json')
     data = JSON.parse(data)
     let promises = []
     for (let item of data) {
@@ -28,7 +32,7 @@ const populateAreas = async () => {
 
 const populatePublishers = async count => {
   try {
-    await connectDB.connect()
+    await connectDB()
     const areas = await Area.find()
     let saveCount = 0
     for (let i = 1; i <= count; i++) {
@@ -48,7 +52,7 @@ const populatePublishers = async count => {
 
 const populateAds = async count => {
   try {
-    await connectDB.connect()
+    await connectDB()
     const publishers = await Publisher.find().lean()
     const promises = []
     for (let i = 1; i <= count; i++) {

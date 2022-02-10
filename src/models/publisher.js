@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: nanoid(7),
+      default: nanoid(8),
     },
     area: {
       type: String,

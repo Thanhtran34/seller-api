@@ -15,7 +15,7 @@ export class PublisherController {
       if (req.query.id) {
         match._id = { $in: req.query.id }
       }
-      const publishers = await Publisher.find({ ...match }, 'name area')
+      const publishers = await Publisher.find({ ...match }, 'name of area')
         .lean()
         .cache(60)
       return res.json({
