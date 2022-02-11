@@ -2,7 +2,7 @@
 import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'
-import { nanoid } from 'nanoid'
+import shortid from 'shortid'
 
 const sanitize = value => validator.escape(value).trim()
 
@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: nanoid(8),
+      default: shortid.generate,
     },
     publisher: {
       type: String,

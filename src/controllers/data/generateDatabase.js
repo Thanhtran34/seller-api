@@ -12,14 +12,15 @@ dotenv.config({path: resolve(process.cwd() + '/.env')})
 const populateAreas = async () => {
   try {
     await connectDB()
-    let data = fs.readFileSync('./areas.json')
+    const pathToFile = resolve(process.cwd() + '/src/controllers/data/areas.json')
+    let data = fs.readFileSync(pathToFile)
     data = JSON.parse(data)
     let promises = []
     for (let item of data) {
       const arr = Object.values(item)
-      const _id = arr[1]
-      const name = arr[0]
-      const population = parseInt(arr[2].replace(/\s+/, ''))
+      const _id = arr[0]
+      const name = arr[1]
+      const population = arr[2]
       const area = new Area({ _id, name, population })
       promises.push(area.save())
     }
@@ -65,7 +66,7 @@ const populateAds = async count => {
         title: `Ad title #${i}`,
         description: `Ads description from ${publisher.name}`,
         body: `Hurry, come and buy low price stuff from ${publisher.name}. Low bargain prices valid only for ${daysValid} days! `,
-        validTo: `2022-01-${(1 + daysValid).toLocaleString('sv', {
+        validTo: `2023-01-${(1 + daysValid).toLocaleString('sv', {
           minimumIntegerDigits: 2,
         })}`,
         imageUrl: 'https://picsum.photos/id/237/200/300.jpg',
@@ -79,7 +80,11 @@ const populateAds = async count => {
   }
 }
 
-populateAds(10000).then(() => {
+//populateAreas()
+//populatePublishers(5)
+populateAds(10).then(() => {
   console.log('done')
   process.exit(0)
 })
+
+

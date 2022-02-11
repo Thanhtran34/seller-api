@@ -4,16 +4,16 @@ import cachegoose from 'cachegoose'
 import validator from 'validator'
 import createError from 'http-errors'
 import bcrypt from 'bcrypt'
-import { nanoid } from 'nanoid'
 import { Ad } from './advertisment.js'
 import { Area } from './area.js'
 import { Hook } from './hook.js'
+import shortid from 'shortid'
 
 const schema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: nanoid(8),
+      default: shortid.generate,
     },
     area: {
       type: String,
