@@ -4,6 +4,7 @@ import { Publisher } from '../models/publisher.js'
 import { Area } from '../models/area.js'
 import { LinkController } from './linkController.js'
 
+const linkController= new LinkController()
 export class AreaController {
   async getAllAreas(req, res, next) {
     try {
@@ -13,7 +14,7 @@ export class AreaController {
       return res.json({
         items: areas.map(a => ({
           ...a,
-          _links: LinkController.createLinkForArea(a),
+          _links: linkController.createLinkForArea(a),
         })),
       })
     } catch (e) {
@@ -31,7 +32,7 @@ export class AreaController {
       }
       return res.json({
         ...area,
-        _links: LinkController.createLinkForArea(area),
+        _links: linkController.createLinkForArea(area),
       })
     } catch (e) {
       next(e)
@@ -50,7 +51,7 @@ export class AreaController {
         items: publishers.map(p => {
           return {
             ...p,
-            _links: LinkController.createLinkForPublisher(p),
+            _links: linkController.createLinkForPublisher(p),
           }
         }),
       })
@@ -71,7 +72,7 @@ export class AreaController {
         items: ads.map(ad => {
           return {
             ...ad,
-            _links: LinkController.createLinkForAd(ad),
+            _links: linkController.createLinkForAd(ad),
           }
         }),
       })

@@ -82,9 +82,10 @@ const populateAds = async count => {
 
 //populateAreas()
 //populatePublishers(5)
-populateAds(10).then(() => {
+/**populateAds(10).then(() => {
   console.log('done')
   process.exit(0)
 })
+*/
 
 

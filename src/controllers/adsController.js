@@ -7,6 +7,9 @@ import { BASE_URL } from '../config/url.js'
 import { actions } from '../config/hookAction.js'
 import createError from 'http-errors'
 
+const linkController = new LinkController()
+const hookController = new HookController()
+
 export class AdsController {
   async getAllAds(req, res, next) {
     try {
@@ -52,7 +55,7 @@ export class AdsController {
         next: count > limit ? `${BASE_URL}${newUrl}` : undefined,
         items: ads.map(ad => ({
           ...ad,
-          _links: LinkController.createLinkForAd(ad),
+          _links: linkController.createLinkForAd(ad),
         })),
       })
     } catch (e) {
@@ -76,8 +79,8 @@ export class AdsController {
       ad = await ad.save()
       ad = ad.toObject()
 
-      HookController.runHook(actions.newAd, ad)
-      const links = LinkController.createLinkForAd(ad)
+      hookController.runHook(actions.newAd, ad)
+      const links = linkController.createLinkForAd(ad)
 
       return res
         .status(201)
@@ -100,7 +103,7 @@ export class AdsController {
       }
       return res.json({
         ...ad,
-        _links: LinkController.createLinkForAd(ad)
+        _links: linkController.createLinkForAd(ad)
       })
     } catch (e) {
       next(e)
@@ -127,7 +130,7 @@ export class AdsController {
       ad = await ad.save()
 
       ad = ad.toObject()
-      return res.json({ ...ad, _links: LinkController.createLinkForAd(ad) })
+      return res.json({ ...ad, _links: linkController.createLinkForAd(ad) })
     } catch (e) {
       next(e)
     }

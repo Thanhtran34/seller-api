@@ -6,6 +6,8 @@ import { BASE_URL } from '../config/url.js'
 import { Publisher } from '../models/publisher.js'
 import { LinkController } from './linkController.js'
 
+const linkController = new LinkController()
+
 export class AccountController {
   validatePassword(res, req, next) {
     try {
@@ -71,7 +73,7 @@ export class AccountController {
           accessToken: token,
           tokenType: 'Bearer',
           expiresIn: 600,
-          _links: LinkController.createLinkForPublisher(user),
+          _links: linkController.createLinkForPublisher(user),
         });
     } catch (error) {
       // Authentication failed.

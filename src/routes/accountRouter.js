@@ -8,14 +8,14 @@ const accController = new AccountController()
 
 router
      .route('/register')
-     .all(addAllow('GET, HEAD, OPTIONS'))
+     .all(addAllow('POST, HEAD, OPTIONS'))
      .post(
        (req, res, next) => accController.register(req, res, next)
      )
 
 router
      .route('/login')
-     .all(addAllow('GET, HEAD, OPTIONS'))
+     .all(addAllow('POST, HEAD, OPTIONS'))
      .post(
        (req, res, next) => accController.login(req, res, next)
      )

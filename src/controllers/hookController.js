@@ -5,6 +5,7 @@ import { Publisher } from '../models/publisher.js'
 import { LinkController } from './linkController.js'
 import { Hook } from '../models/hook.js'
 
+const linkController = new LinkController()
 export class HookController {
   /**
    * Sends payload as JSON via POST all subscribers with
@@ -31,7 +32,7 @@ export class HookController {
         items: hooks.map(h => {
           return {
             ...h,
-            _links: LinkController.createLinkForHook(h),
+            _links: linkController.createLinkForHook(h),
           }
         }),
       })
@@ -50,7 +51,7 @@ export class HookController {
       const { action, callback } = req.body
       let hook = new Hook({ action, callback, publisher: id })
       hook = await hook.save()
-      const links = LinkController.createLinkForHook(hook)
+      const links = linkController.createLinkForHook(hook)
       hook = hook.toObject()
       return res
         .status(201)
@@ -78,7 +79,7 @@ export class HookController {
       }
       return res.json({
         ...hook,
-        _links: LinkController.createLinkForHook(hook),
+        _links: linkController.createLinkForHook(hook),
       })
     } catch (e) {
       next(e)
@@ -107,7 +108,7 @@ export class HookController {
       hook = hook.toObject()
       return res.json({
         ...hook,
-        _links: LinkController.createLinkForHook(hook),
+        _links: linkController.createLinkForHook(hook),
       })
     } catch (e) {
       next(e)

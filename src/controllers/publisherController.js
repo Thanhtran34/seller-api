@@ -5,6 +5,9 @@ import { LinkController } from './linkController.js'
 import { HookController } from './hookController.js'
 import { actions } from '../config/hookAction.js'
 import createError from 'http-errors'
+
+const linkController = new LinkController()
+const hookController = new HookController()
 export class PublisherController {
   async getAllPublishers(req, res, next) {
     try {
@@ -22,7 +25,7 @@ export class PublisherController {
         items: publishers.map(p => {
           return {
             ...p,
-            _links: LinkController.createLinkForPublisher(p),
+            _links: linkController.createLinkForPublisher(p),
           }
         }),
       })
@@ -35,9 +38,9 @@ export class PublisherController {
     try {
       let publisher = new Publisher({ ...req.body, _id: undefined })
       publisher = await publisher.save()
-      const links = LinkController.createLinkForPublisher(publisher)
+      const links = linkController.createLinkForPublisher(publisher)
       publisher = publisher.toObject()
-      HookController.runHook(actions.newPublisher, publisher)
+      hookController.runHook(actions.newPublisher, publisher)
       return res
         .status(201)
         .header('Location', links.self)
@@ -61,7 +64,7 @@ export class PublisherController {
       }
       return res.json({
         ...publisher,
-        _links: LinkController.createLinkForPublisher(publisher),
+        _links: linkController.createLinkForPublisher(publisher),
       })
     } catch (e) {
       next(e)
@@ -89,7 +92,7 @@ export class PublisherController {
       publisher = publisher.toObject()
       return res.json({
         ...publisher,
-        _links: LinkController.createLinkForPublisher(publisher),
+        _links: linkController.createLinkForPublisher(publisher),
       })
     } catch (e) {
       next(e)
@@ -128,7 +131,7 @@ export class PublisherController {
       }
       return res.json({
         ...publisher,
-        _links: LinkController.createLinkForPublisher(publisher),
+        _links: linkController.createLinkForPublisher(publisher),
       })
     } catch (e) {
       next(e)
@@ -144,7 +147,7 @@ export class PublisherController {
         items: ads.map(ad => {
           return {
             ...ad,
-            _links: LinkController.createLinkForAd(ad),
+            _links: linkController.createLinkForAd(ad),
           }
         }),
       })
