@@ -136,6 +136,32 @@ export class AdsController {
     }
   }
 
+  async updatePartOfAd(req, res, next) {
+    try {
+      const publisherId = req.token.id
+      let ad = await Ad.findById(req.params.id)
+      if (!ad) {
+        return next()
+      }
+      if (ad.publisher !== publisherId) {
+        createError(403)
+      }
+      const ignoreKeys = ['_id', 'publisher', 'area', 'title', 'body']
+      Object.keys(req.body).forEach(key => {
+        if (ignoreKeys.includes(key)) {
+          return
+        }
+        ad[key] = req.body[key]
+      })
+      ad = await ad.save()
+
+      ad = ad.toObject()
+      return res.json({ ...ad, _links: linkController.createLinkForAd(ad) })
+    } catch (e) {
+      next(e)
+    }
+  }
+
   async deleteOneAd(req, res, next) {
     try {
       const publisherId = req.token.id

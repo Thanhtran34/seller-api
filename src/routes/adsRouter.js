@@ -19,11 +19,15 @@ router
 
 router
     .route('/:id')
-    .all(addAllow('GET, PATCH, DELETE, HEAD, OPTIONS'))
+    .all(addAllow('GET, PUT, PATCH, DELETE, HEAD, OPTIONS'))
     .get((req, res, next) => adController.getOneAd(req, res, next))
-    .patch(
+    .put(
         (req, res, next) => accController.authenticateJWT(req, res, next), 
         (req, res, next) => adController.updateOneAd(req, res, next)
+        )
+    .patch(
+        (req, res, next) => accController.authenticateJWT(req, res, next), 
+        (req, res, next) => adController.updatePartOfAd(req, res, next)
         )
     .delete(
         (req, res, next) => accController.authenticateJWT(req, res, next), 

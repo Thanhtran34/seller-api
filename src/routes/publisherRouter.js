@@ -18,15 +18,19 @@ router
 
 router
      .route('/:id')
-     .all(addAllow('GET, PATCH, DELETE, HEAD, OPTIONS'
+     .all(addAllow('GET, PUT, PATCH, DELETE, HEAD, OPTIONS'
      ))
      .get(
       (req, res, next) => publisherController.getOnePublisher(req, res, next)
      )
-     .patch(
+     .put(
        (req, res, next) => accController.authenticateJWT(req, res, next),
        (req, res, next) => publisherController.updateOnePublisher(req, res, next)
        )
+     .patch(
+        (req, res, next) => accController.authenticateJWT(req, res, next),
+        (req, res, next) => publisherController.updatePartOfPublisher(req, res, next)
+        )
      .delete(
       (req, res, next) => accController.authenticateJWT(req, res, next),
       (req, res, next) => publisherController.deleteOnePublisher(req, res, next)
