@@ -35,18 +35,28 @@ export class AccountController {
         password: req.body.password,
       })
 
-      jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
-        algorithm: 'HS256',
-        expiresIn: 600,
-      })
-
       res
-        .status(200)
+        .status(201)
         .header('Cache-Control', 'no-store')
         .header('Pragma', 'no-cache')
-        .json({ id: user.id })
+        .json({ 
+          id: user._id,
+        _links: linkController.createLinkForLogin()
+        })
     } catch (error) {
-      next(createError(409, 'Email already exists'))
+      let err = error
+
+      if (err.code === 11000) {
+        // Duplicated keys.
+        err = createError(409)
+        err.innerException = error
+      } else if (error.name === 'ValidationError') {
+        // Validation error(s).
+        err = createError(400)
+        err.innerException = error
+      }
+
+      next(err)
     }
   }
 
@@ -57,7 +67,10 @@ export class AccountController {
         req.body.password
       )
 
-      const payload = { id: user.id }
+      const payload = { 
+        email: user.email,
+        password: user.password
+      }
 
       // Create the access token with the shorter lifespan.
       const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {

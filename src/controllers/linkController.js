@@ -2,6 +2,15 @@
 import { BASE_URL } from '../config/url.js'
 
 export class LinkController {
+  createLinkForLogin() {
+    const self = BASE_URL + '/auth/register' 
+    const login = BASE_URL + '/auth/login'
+    return {
+      self,
+      login
+    }
+  }
+
   createLinkForPublisher(publisher) {
     const self = BASE_URL + '/publishers/' + publisher._id
     const ads = self + '/ads'
