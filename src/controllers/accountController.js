@@ -1,7 +1,8 @@
 // Authentication controller
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors'
-import PasswordValidator from 'password-validator'
+import isEmpty from 'is-empty'
+import Validator from 'validator'
 import { BASE_URL } from '../config/url.js'
 import { Publisher } from '../models/publisher.js'
 import { LinkController } from './linkController.js'
@@ -9,20 +10,31 @@ import { LinkController } from './linkController.js'
 const linkController = new LinkController()
 
 export class AccountController {
-  validatePassword(res, req, next) {
+  validateInput (req, res, next) {
     try {
-      const passwordSchema = new PasswordValidator();
-      passwordSchema.is().min(8)
-      passwordSchema.is().max(100)
-      passwordSchema.has().uppercase()
-      passwordSchema.has().lowercase()
-      passwordSchema.has().digits()
-      if (!passwordSchema.validate(password)) {
-        createError(403, 'Your password must be at least 8 characters, max 100 chars and includes one lowercase, one uppercase, one digit.') 
+      const errors = {}
+      req.body.email = !isEmpty(req.body.email) ? req.body.email : ''
+      req.body.password = !isEmpty(req.body.password) ? req.body.password : ''
+
+      if (Validator.isEmpty(req.body.email)) {
+        errors.email = 'Email is required'
+      } else if (!Validator.isEmail(req.body.email)) {
+        errors.email = 'Not a valid email'
       }
-      next()
-    } catch (error) {
-      next(error)
+
+      if (Validator.isEmpty(req.body.password)) {
+        errors.password = 'Password is required'
+      }
+
+      if (!Validator.isStrongPassword(req.body.password, {minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1})) {
+        errors.password = 'Password must be minst 8 characters long with minst 1 lowercase, 1 uppercase, 1 number and 1 special symbol'
+      }
+
+      if (!isEmpty(errors)) {
+        res.status(422).json(errors)
+      } else next()
+    } catch (err) {
+      next(err)
     }
   }
 

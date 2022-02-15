@@ -10,6 +10,7 @@ router
      .route('/register')
      .all(addAllow('POST, HEAD, OPTIONS'))
      .post(
+      (req, res, next) => accController.validateInput(req, res, next),
        (req, res, next) => accController.register(req, res, next)
      )
 

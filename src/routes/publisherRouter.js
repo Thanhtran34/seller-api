@@ -13,6 +13,7 @@ router
      .all(addAllow('GET, POST, HEAD, OPTIONS'))
      .get((req, res, next) => publisherController.getAllPublishers(req, res, next))
      .post(
+      (req, res, next) => accController.validateInput(req, res, next),
       (req, res, next) => publisherController.createNewPublisher(req, res, next)
      )
 

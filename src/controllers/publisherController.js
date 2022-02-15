@@ -49,7 +49,7 @@ export class PublisherController {
           _links: links,
         })
     } catch (e) {
-      next(e)
+      next(createError(422, 'Duplicate registration'))
     }
   }
 
