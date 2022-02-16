@@ -26,6 +26,7 @@ router
      )
      .put(
        (req, res, next) => accController.authenticateJWT(req, res, next),
+       (req, res, next) => accController.validateInput(req, res, next),
        (req, res, next) => publisherController.updateOnePublisher(req, res, next)
        )
      .delete(

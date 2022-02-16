@@ -46,8 +46,7 @@ export class AccountController {
       )
 
       const payload = { 
-        email: user.email,
-        password: user.password
+        id: user.id
       }
 
       // Create the access token with the shorter lifespan.

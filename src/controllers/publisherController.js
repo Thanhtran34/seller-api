@@ -75,7 +75,7 @@ export class PublisherController {
     try {
       const { id } = req.token
       if (req.params.id !== id) {
-        createError(403)
+        next(createError(403))
       }
       let publisher = await Publisher.findById(req.params.id)
       if (!publisher) {
@@ -105,7 +105,7 @@ export class PublisherController {
       if (req.params.id !== id) {
         createError(403)
       }
-      const doc = await Publisher.findByIdAndDelete(id)
+      const doc = await Publisher.findByIdAndDelete(req.params.id)
       if (!doc) {
         return next()
       }

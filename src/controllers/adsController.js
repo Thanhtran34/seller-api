@@ -65,10 +65,10 @@ export class AdsController {
 
   async createAds(req, res, next) {
     try {
-      const data  = req.token
-      const publisher = await Publisher.findOne({"email": data.email})
+      const {id}  = req.token
+      const publisher = await Publisher.findById(id)
       if (!publisher) {
-        createError(403,'Your token is not valid')
+        next(createError(403,'Your token is not valid'))
       }
       let ad = new Ad({
         ...req.body,
@@ -118,7 +118,7 @@ export class AdsController {
         return next()
       }
       if (ad.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       const ignoreKeys = ['_id', 'publisher', 'area']
       Object.keys(req.body).forEach(key => {
@@ -144,7 +144,7 @@ export class AdsController {
         return next()
       }
       if (ad.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       const ignoreKeys = ['_id', 'publisher', 'area', 'title', 'body']
       Object.keys(req.body).forEach(key => {
@@ -170,7 +170,7 @@ export class AdsController {
         return next()
       }
       if (ad.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       await ad.remove()
       return res.status(204).send()
