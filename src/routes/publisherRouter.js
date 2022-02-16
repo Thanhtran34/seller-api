@@ -28,10 +28,6 @@ router
        (req, res, next) => accController.authenticateJWT(req, res, next),
        (req, res, next) => publisherController.updateOnePublisher(req, res, next)
        )
-     .patch(
-        (req, res, next) => accController.authenticateJWT(req, res, next),
-        (req, res, next) => publisherController.updatePartOfPublisher(req, res, next)
-        )
      .delete(
       (req, res, next) => accController.authenticateJWT(req, res, next),
       (req, res, next) => publisherController.deleteOnePublisher(req, res, next)

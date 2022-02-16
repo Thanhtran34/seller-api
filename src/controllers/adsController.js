@@ -65,8 +65,8 @@ export class AdsController {
 
   async createAds(req, res, next) {
     try {
-      const { id } = req.token
-      const publisher = await Publisher.findById(id)
+      const data  = req.token
+      const publisher = await Publisher.findOne({"email": data.email})
       if (!publisher) {
         createError(403,'Your token is not valid')
       }

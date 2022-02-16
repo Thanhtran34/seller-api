@@ -99,34 +99,6 @@ export class PublisherController {
     }
   }
 
-  async updatePartOfPublisher(req, res, next) {
-    try {
-      const { id } = req.token
-      if (req.params.id !== id) {
-        createError(403)
-      }
-      let publisher = await Publisher.findById(req.params.id)
-      if (!publisher) {
-        return next()
-      }
-      const ignoreKeys = ['_id', 'area', 'name', 'email']
-      Object.keys(req.body).forEach(key => {
-        if (ignoreKeys.includes(key)) {
-          return
-        }
-        publisher[key] = req.body[key]
-      })
-      await publisher.save()
-      publisher = publisher.toObject()
-      return res.json({
-        ...publisher,
-        _links: linkController.createLinkForPublisher(publisher),
-      })
-    } catch (e) {
-      next(e)
-    }
-  }
-
   async deleteOnePublisher(req, res, next) {
     try {
       const { id } = req.token
@@ -146,11 +118,14 @@ export class PublisherController {
 
   async getDetailOfPublisher(req, res, next) {
     try {
-      const { id } = req.token
-      if (req.params.id !== id) {
-        createError(403)
-      }
-      const publisher = await Publisher.findById(id, '-password -__v')
+      const data = req.token
+      const creator = await Publisher.findOne({"email": data.email})
+      
+      if (req.params.id !== creator._id) {
+        next(createError(403, 'Not creator'))
+      } 
+
+        const publisher = await Publisher.findById(req.params.id)
         .populate('area', 'name population')
         .lean()
         .cache(60)

@@ -38,40 +38,6 @@ export class AccountController {
     }
   }
 
-  async register(req, res, next) {
-    try {
-      const user = await Publisher.insert({
-        name: req.body.name,
-        email: req.body.email,
-        area: req.body.area,
-        password: req.body.password,
-      })
-
-      res
-        .status(201)
-        .header('Cache-Control', 'no-store')
-        .header('Pragma', 'no-cache')
-        .json({ 
-          id: user._id,
-        _links: linkController.createLinkForLogin()
-        })
-    } catch (error) {
-      let err = error
-
-      if (err.code === 11000) {
-        // Duplicated keys.
-        err = createError(409)
-        err.innerException = error
-      } else if (error.name === 'ValidationError') {
-        // Validation error(s).
-        err = createError(400)
-        err.innerException = error
-      }
-
-      next(err)
-    }
-  }
-
   async login(req, res, next) {
     try {
       const user = await Publisher.authenticate(
@@ -87,7 +53,7 @@ export class AccountController {
       // Create the access token with the shorter lifespan.
       const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
         algorithm: 'HS256',
-        expiresIn: 600,
+        expiresIn: '20d',
       })
 
       res
@@ -97,7 +63,7 @@ export class AccountController {
         .json({
           accessToken: token,
           tokenType: 'Bearer',
-          expiresIn: 600,
+          expiresIn: '20d',
           _links: linkController.createLinkForPublisher(user),
         });
     } catch (error) {
@@ -107,7 +73,7 @@ export class AccountController {
   }
 
   authenticateJWT(req, res, next) {
-    const authorization = req.headers.authorization?.split('')
+    const authorization = req.headers.authorization?.split(' ')
 
     if (authorization?.[0] !== 'Bearer') {
       next(createError(401, 'Bearer token is missing'));
@@ -123,7 +89,7 @@ export class AccountController {
       req.token = payload
 
       next()
-    } catch (err) {
+    } catch (e) {
       const authUrl = BASE_URL + '/auth/login'
       return res
         .status(401)
