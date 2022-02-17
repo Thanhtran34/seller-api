@@ -1,4 +1,4 @@
 export const actions = {
-  newAd: 'newAd',
-  newPublisher: 'newPublisher',
+  newAd: 'createNewAd',
+  newPublisher: 'registerNewPublisher',
 }

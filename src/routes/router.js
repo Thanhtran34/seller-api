@@ -21,8 +21,7 @@ router
         _links: {
           publishers: BASE_URL + '/publishers',
           ads: BASE_URL + '/ads',
-          areas: BASE_URL + '/areas',
-          auth: BASE_URL + '/auth',
+          areas: BASE_URL + '/areas'
         },
       })
     } catch (e) {

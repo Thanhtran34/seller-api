@@ -27,7 +27,7 @@ router
         (req, res, next) => accController.authenticateJWT(req, res, next),
         (req, res, next) => hookController.getOneHook(req, res, next)
       )
-      .put(
+      .patch(
         (req, res, next) => accController.authenticateJWT(req, res, next),
         (req, res, next) => hookController.updateOneHook(req, res, next)
       )

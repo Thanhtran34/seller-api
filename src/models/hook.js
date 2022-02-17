@@ -3,11 +3,7 @@ import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'
 import shortid from 'shortid'
-
-const actions = {
-  newAd: 'newAd',
-  newPublisher: 'newPublisher',
-}
+import { actions } from '../config/hookAction.js'
 
 const actionValues = Object.keys(actions).map(key => actions[key])
 

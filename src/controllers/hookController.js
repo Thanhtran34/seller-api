@@ -46,7 +46,7 @@ export class HookController {
       const { id } = req.token
       const publisher = await Publisher.findById(id)
       if (!publisher) {
-        createError(403, 'Your token is not valid')
+        next(createError(403, 'Your token is not valid or expired'))
       }
       const { action, callback } = req.body
       let hook = new Hook({ action, callback, publisher: id })
