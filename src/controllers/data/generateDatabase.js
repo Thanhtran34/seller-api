@@ -65,7 +65,7 @@ const populateAds = async count => {
         area: publisher.area,
         title: `Ad title #${i}`,
         description: `Ads description from ${publisher.name}`,
-        body: `Hurry, come and buy low price stuff from ${publisher.name}. Low bargain prices valid only for ${daysValid} days! `,
+        body: `Hurry, come and buy low-price stuff from ${publisher.name}. Low bargain prices only valif for ${daysValid} days! You should not miss this deal today! `,
         validTo: `2023-01-${(1 + daysValid).toLocaleString('sv', {
           minimumIntegerDigits: 2,
         })}`,
@@ -85,11 +85,10 @@ const populateAds = async count => {
 // Step 2: Generate publishers for testing
 //populatePublishers(30)
 // Step 3: Generate random ads for testing
-/**populateAds(110).then(() => {
+populateAds(110).then(() => {
   console.log('done')
   process.exit(0)
 })
-*/
 
 
 
