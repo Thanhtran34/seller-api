@@ -85,10 +85,10 @@ const populateAds = async count => {
 // Step 2: Generate publishers for testing
 //populatePublishers(30)
 // Step 3: Generate random ads for testing
-populateAds(110).then(() => {
+/**populateAds(110).then(() => {
   console.log('done')
   process.exit(0)
 })
-
+*/
 
 
