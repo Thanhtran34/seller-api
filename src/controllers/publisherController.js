@@ -103,7 +103,7 @@ export class PublisherController {
     try {
       const { id } = req.token
       if (req.params.id !== id) {
-        createError(403)
+        next(createError(403))
       }
       const doc = await Publisher.findByIdAndDelete(req.params.id)
       if (!doc) {
@@ -118,10 +118,9 @@ export class PublisherController {
 
   async getDetailOfPublisher(req, res, next) {
     try {
-      const data = req.token
-      const creator = await Publisher.findOne({"email": data.email})
+      const {id} = req.token
       
-      if (req.params.id !== creator._id) {
+      if (req.params.id !== id) {
         next(createError(403, 'Not creator'))
       } 
 
