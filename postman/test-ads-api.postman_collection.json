@@ -25,8 +25,7 @@
 									"    pm.expect(jsonData._links).to.exist;\r",
 									"});\r",
 									"\r",
-									"tests[\"Body is not empty\"] = (responseBody!==null || responseBody.length!==0);\r",
-									"tests[\"Response time is acceptable\"] = _.inRange(responseTime, 0, 500);"
+									"tests[\"Body is not empty\"] = (responseBody!==null || responseBody.length!==0);"
 								],
 								"type": "text/javascript"
 							}
