@@ -6,7 +6,6 @@
  */
 
 import express from 'express'
-//import helmet from 'helmet'
 import morgan from 'morgan'
 import compression from 'compression'
 import cors from 'cors'
@@ -22,7 +21,6 @@ const main = async () => {
   await connectDB()
 
   const app = express()
-  //app.use(helmet())
  
   if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('dev'))
@@ -53,4 +51,4 @@ const main = async () => {
   })
 }
 
-main().catch(console.error)
+main().catch(logger.error)
