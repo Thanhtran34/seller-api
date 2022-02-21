@@ -58,7 +58,7 @@ const schema = new mongoose.Schema(
         validator: v =>
           validator.isURL(v) && v.match(/\.(jpeg|jpg|gif|png|svg)$/),
         message:
-          'imageUrl must be a valid url to an image with format in jpg, gif, png, svg',
+          'imageUrl must be valid to an image with format in jpg, gif, png, svg',
       }
     }
   },

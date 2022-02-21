@@ -88,7 +88,7 @@ schema.post('save', (error, doc, next) => {
 schema.statics.authenticate = async function (email, password) {
   const user = await this.findOne({ email })
 
-  // If no user found or password is wrong, throw an error.
+  // Throw error if no user found or passord is wrong
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error('Invalid username or password.')
   }

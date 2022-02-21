@@ -23,7 +23,7 @@ const schema = new mongoose.Schema(
       required: true,
       validate: {
         validator: v => actionValues.includes(v),
-        message: `action needs to be one of [${actionValues.join()}]`,
+        message: `action/event must be one of [${actionValues.join()}]`,
       },
     },
     callback: {
@@ -31,7 +31,7 @@ const schema = new mongoose.Schema(
       required: true,
       validate: {
         validator: v => validator.isURL(v),
-        message: 'callback needs to be a valid URL',
+        message: 'callback URL needs to be valid',
       },
     }
   },

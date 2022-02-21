@@ -71,7 +71,7 @@ export class HookController {
         return next()
       }
       if (hook.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       return res.json({
         ...hook,
@@ -91,7 +91,7 @@ export class HookController {
         return next()
       }
       if (hook.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       const ignoreKeys = ['_id publisher']
       Object.keys(req.body).forEach(key => {
@@ -119,7 +119,7 @@ export class HookController {
         return next()
       }
       if (hook.publisher !== publisherId) {
-        createError(403)
+        next(createError(403))
       }
       await hook.remove()
       return res.status(204).send()
