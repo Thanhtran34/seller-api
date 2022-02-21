@@ -31,11 +31,11 @@ There have dupplication in the actions in mongoose sometimes that i can improve 
 *** Rule 1: Forward slash separator (/) must be used to indicate a "hierarchical relationship". ***
 
 All router links use this rule to indicate a hierarchical relationship between resources. For example:
-https://seller-market.herokuapp.com/publishers/:id\
-https://seller-market.herokuapp.com/publishers/:id/details\
-https://seller-market.herokuapp.com/publishers/:id/ads\
-https://seller-market.herokuapp.com/auth/login\
-https://seller-market.herokuapp.com/ads/:id\
+https://seller-market.herokuapp.com/publishers/:id <br />
+https://seller-market.herokuapp.com/publishers/:id/details <br />
+https://seller-market.herokuapp.com/publishers/:id/ads <br />
+https://seller-market.herokuapp.com/auth/login <br />
+https://seller-market.herokuapp.com/ads/:id <br />
 
 *** Rule 2: A trailing forward-slash (/) should not be included in URIs ***
 
@@ -51,9 +51,9 @@ All the URLs of this API don't use any underscores in the URIs. The browsers, ed
 
 *** Rule 5:  Lowercase letters should be preferred in URI paths ***
 
-https://seller-market.herokuapp.com/publishers\
-https://seller-market.herokuapp.com/ads\
-https://seller-market.herokuapp.com/areas\
+https://seller-market.herokuapp.com/publishers <br />
+https://seller-market.herokuapp.com/ads <br />
+https://seller-market.herokuapp.com/areas <br />
 Lowercase letters are used in URI paths for covenience and the capital letters might lead to problems because the URIs may indentify different resources with capital letters even though you ay think that it will show the same resource. URIs is defined as case-sensitive except for scheme and host component.
 
 *** Rule 6:  File extensions should not be included in URIs ***
@@ -62,10 +62,10 @@ No file extension is implemented in URIs of this API. A REST API should depend o
 
 *** Rule 10:   CRUD function names or their synonyms should not be used in URIs ***
 
-https://seller-market.herokuapp.com/publishers\
-https://seller-market.herokuapp.com/ads\
-https://seller-market.herokuapp.com/auth/login\
-https://seller-market.herokuapp.com/areas\
+https://seller-market.herokuapp.com/publishers <br />
+https://seller-market.herokuapp.com/ads <br />
+https://seller-market.herokuapp.com/auth/login <br />
+https://seller-market.herokuapp.com/areas <br />
 CRUD functions (Create, Read, Update, Delete) are not included in the URIs because URIs should not be used to reveal what the CRUD functions perform adn URIs should only be implemented to indentify unique resources. 
 
 7. #### Did you do something extra besides the fundamental requirements? Explain them.
