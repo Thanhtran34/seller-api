@@ -28,4 +28,44 @@ User/publisher can send a POST request with action/event and callback URL to ROO
 There have dupplication in the actions in mongoose sometimes that i can improve next time. I have used one key for JWT to make it simplier for testing and deploying in Heroku but to make the API more secure due to crypto algorithm, a pair with public/private key should be used. The user may have option to encrypt their sensitive data like personalnumber or credit number when saving to Mongo DB. API users should have more pagination, filtering, and query options.The authentication process can be handled by other service like Firebase. I want also to "stress" the API with around 10 000 advertisements but Mongo Atlas gives only 512 MB free storage so I don't want to risk this thing and it is more difficult to check the response if there has many advertisments. 
 
 6. #### Which "linguistic design rules" have you implemented? List them here and motivate "for each" of them very briefly why you choose them? Remember that you must consider "at least" FIVE "linguistic design rules" as the linguistic quality of your API.
+1. <u>Rule 1: Forward slash separator (/) must be used to indicate a "hierarchical relationship".</u> 
+All router links use this rule to indicate a hierarchical relationship between resources. For example:
+https://seller-market.herokuapp.com/publishers/:id
+https://seller-market.herokuapp.com/publishers/:id/details
+https://seller-market.herokuapp.com/publishers/:id/ads
+https://seller-market.herokuapp.com/auth/login
+https://seller-market.herokuapp.com/ads/:id
 
+2. <u>Rule 2: A trailing forward-slash (/) should not be included in URIs</u>
+When we look at all examples above, there has no trailing forward-slash at the end of the URL and even the ROOT_URL does not have this thing. Every characters with a URI represents a resource's unique identity so this trailing slash should be counted toward another not the same resource in the REST API and it should not make the imprecise indentification of a resource for the client.
+
+3. <u>Rule 3: Hyphens (-) should be used to improve the readability of URIs.</u>
+Look at the BASE_URL/ROOT_URL https://seller-market.herokuapp.com, the hyphens is used between seller-market to make it easy for client to scan and intepret. This name is easy to read and understand than 'sellermarket'.
+
+4. <u>Rule 4:  Underscores (_) should not be used in URIs.</u>
+All the URLs of this API don't use any underscores in the URIs. The browsers, editor and other text viewer software used to underline URIs to show that they are clickable. Having the underscores in URIs might be completely hidden  in this underlining and create confusion for the client. It is better to user hyphens instead.
+
+5. <u>Rule 5:  Lowercase letters should be preferred in URI paths.</u>
+https://seller-market.herokuapp.com/publishers
+https://seller-market.herokuapp.com/ads
+https://seller-market.herokuapp.com/areas
+Lowercase letters are used in URI paths for covenience and the capital letters might lead to problems because the URIs may indentify different resources with capital letters even though you ay think that it will show the same resource. URIs is defined as case-sensitive except for scheme and host component.
+
+6. <u>Rule 6:  File extensions should not be included in URIs.</u>
+No file extension is implemented in URIs of this API. A REST API should depend on the media type in the Content-Type header not contain artificial file extensions in URIs to specify the format of the message's body.
+
+7. <u>Rule 10:   CRUD function names or their synonyms should not be used in URIs.</u>
+https://seller-market.herokuapp.com/publishers
+https://seller-market.herokuapp.com/ads
+https://seller-market.herokuapp.com/auth/login
+https://seller-market.herokuapp.com/areas
+CRUD functions (Create, Read, Update, Delete) are not included in the URIs because URIs should not be used to reveal what the CRUD functions perform adn URIs should only be implemented to indentify unique resources. 
+
+7. #### Did you do something extra besides the fundamental requirements? Explain them.
+- I have used Winston library to support for multiple transports which is essentially a storage device for my logs like internal server error and these errors will be saved to a specific log file.
+- Validator package is implemented to check if password is strong or not with minst 8 characters. 
+- isEmpty is used to require that the email of user can not be empty. 
+- Password is hashed and salted with bcrypt package.
+- https://webhook.site/dbe79022-fde6-45fa-9397-172191b0bbd6  is used as callback link for the user in webhook to save all logger about hooks in this unique URL.
+- Several filters and paginations are implemented such as paginate 100 first advertisments with query parameter $skip_ and $limit_ for limitting the amount of advertisements in the response. HEAD and OPTIONS are implemented for all routes to ensure the correct response headers. Any unsupported method in the request will give back error code 405. 
+- I do enable lean option to make Mongoose queries faster and less memory intensive. Mongoose will skip hydrating a full document and return only plain old Javascript objects (POJOs)
