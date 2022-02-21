@@ -30,7 +30,7 @@ There have dupplication in the actions in mongoose sometimes that i can improve 
 6. #### Which "linguistic design rules" have you implemented? List them here and motivate "for each" of them very briefly why you choose them? Remember that you must consider "at least" FIVE "linguistic design rules" as the linguistic quality of your API.
 *** Rule 1: Forward slash separator (/) must be used to indicate a "hierarchical relationship". ***
 
-All router links use this rule to indicate a hierarchical relationship between resources. For example:
+All router links use this rule to indicate a hierarchical relationship between resources. For example: <br />
 https://seller-market.herokuapp.com/publishers/:id <br />
 https://seller-market.herokuapp.com/publishers/:id/details <br />
 https://seller-market.herokuapp.com/publishers/:id/ads <br />
