@@ -1,0 +1,92 @@
+LIST OF ALL RESOURCE URIs AND THEIR BRIEF DESCRIPTION
+
+- Home: GET https://seller-market.herokuapp.com
+The reponse will return all links of this API as below:
+       {
+    "_links": {
+        "publishers": "https://seller-market.herokuapp.com/publishers",
+        "ads": "https://seller-market.herokuapp.com/ads",
+        "areas": "https://seller-market.herokuapp.com/areas"
+    }
+}
+
+When the client clicks to one of these links and send a GET request, the client can see public informations about the publishers, advertisement and areas.
+
+- Publishers https://seller-market.herokuapp.com/publishers
+GET https://seller-market.herokuapp.com/publishers
+get all publishers and their details together with the links to login or to check areas and ads.
+
+POST https://seller-market.herokuapp.com/publishers
+Register new publisher with name, email, password and area. Area should be one of the Municipality code like "0180" for Stockholm. Email cannot be empty and password must be strong with minst 8 characters. Publisher will get his unique id to check more information later.
+
+POST https://seller-market.herokuapp.com/auth/login
+The publisher login with valid email and password to receive his own JWT token. 
+
+GET  https://seller-market.herokuapp.com/publishers/publisher-id
+get public details of a specific publisher with his id. 
+
+GET  https://seller-market.herokuapp.com/publishers/publisher-id/details
+get private information of a specific publisher
+
+GET  https://seller-market.herokuapp.com/publishers/publisher-id/ads
+get all advertisements of one publisher
+
+PUT https://seller-market.herokuapp.com/publishers/publisher-id
+update one publisher (name, email and password)
+
+DELETE https://seller-market.herokuapp.com/publishers/publisher-id
+delete one specific publisher
+
+- Advertisement https://seller-market.herokuapp.com/ads
+GET https://seller-market.herokuapp.com/ads
+get all advertisements
+
+GET https://seller-market.herokuapp.com/ads?$limit=100
+get first 100 advertisements
+
+GET https://seller-market.herokuapp.com/ads?$limit=4&$skip=100
+get 4 first advertisements of first 100 advertisements
+
+POST https://seller-market.herokuapp.com/ads 
+create new ads with title, description. body, validTo and imageURL (user must be authorized with Bearer token)
+
+GET https://seller-market.herokuapp.com/ads/ads-id
+get details of a specific advertisement
+
+PUT https://seller-market.herokuapp.com/ads/ads-id 
+Update the whole advertisment but the ad-id, publisher-id and area of ads will not be changed anyway. Only title, description and body can be editted.
+
+PATCH https://seller-market.herokuapp.com/ads/ads-id 
+update oonly description of the advertisement
+
+DELETE https://seller-market.herokuapp.com/ads/ads-id 
+delete a specific advertisement
+
+- Area https://seller-market.herokuapp.com/areas
+GET https://seller-market.herokuapp.com/areas 
+get all areas with their code and population
+
+GET https://seller-market.herokuapp.com/areas/0880
+get information of Kalmar area
+
+GET https://seller-market.herokuapp.com/areas/0180/publishers
+get all publishers from Stockholm
+
+GET https://seller-market.herokuapp.com/areas/0180/ads
+get all advertisements from Stockholm
+
+- Hooks https://seller-market.herokuapp.com/hooks
+GET https://seller-market.herokuapp.com/hooks
+get all hooks
+
+GET https://seller-market.herokuapp.com/hooks/hook-id
+get details of a hook
+
+POST https://seller-market.herokuapp.com/hooks
+register a webhook with action and callbackURL https://webhook.site/e3b43ff2-69dd-4c4b-8f05-5c2533d5a320
+
+PATCH https://seller-market.herokuapp.com/hooks/hook-id
+update action of a specific webhook
+
+DELETE https://seller-market.herokuapp.com/hooks/hook-id
+delete a specific hook
