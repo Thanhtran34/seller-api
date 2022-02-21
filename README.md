@@ -5,8 +5,8 @@ API seller-market is a simple version of blocket.se where the seller/publisher m
 
 ## URL
 
-URL to api: https://seller-market.herokuapp.com </br>
-Database : Mongo Atlas </br>
+URL to api: https://seller-market.herokuapp.com <br />
+Database : Mongo Atlas <br />
 
 ## Test
 
@@ -19,5 +19,5 @@ npm test
 (requires that [newman cli](https://www.npmjs.com/package/newman) is installed through running `npm i newman`)
 
 ## Author
-Tran Thi Kim Thanh </br>
+Tran Thi Kim Thanh <br />
 tt222kj
