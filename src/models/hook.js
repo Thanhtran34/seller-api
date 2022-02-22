@@ -30,9 +30,7 @@ const schema = new mongoose.Schema(
     },
     secret: {
       type: String,
-      required: true,
-      minlength: 1,
-      maxlength: 100
+      required: true
     },
     callback: {
       type: String,

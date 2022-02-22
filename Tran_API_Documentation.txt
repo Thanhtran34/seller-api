@@ -86,7 +86,7 @@ POST https://seller-market.herokuapp.com/hooks
 register a webhook with action and callbackURL https://webhook.site/e3b43ff2-69dd-4c4b-8f05-5c2533d5a320
 
 PATCH https://seller-market.herokuapp.com/hooks/hook-id
-update action of a specific webhook
+update action and secret of a specific webhook
 
 DELETE https://seller-market.herokuapp.com/hooks/hook-id
 delete a specific hook
