@@ -1734,7 +1734,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"action\": \"registerNewPublisher\",\r\n\t\"callback\": \"https://webhook.site/e3b43ff2-69dd-4c4b-8f05-5c2533d5a320\"\r\n}"
+							"raw": "{\r\n\t\"action\": \"registerNewPublisher\",\r\n\t\"callback\": \"https://webhook.site/9b329878-e653-45ca-8aa5-f2f61f87def3\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ROOT_URL}}/hooks",
