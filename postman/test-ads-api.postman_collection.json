@@ -1827,7 +1827,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"action\": \"createNewAd\"\r\n}"
+							"raw": "{\r\n\t\"action\": \"createNewAd\",\r\n    \"secret\":\"new secret\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ROOT_URL}}/hooks/{{HOOK_ID}}",

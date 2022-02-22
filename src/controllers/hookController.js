@@ -96,7 +96,7 @@ export class HookController {
       if (hook.publisher !== publisherId) {
         next(createError(403))
       }
-      const ignoreKeys = ['_id publisher']
+      const ignoreKeys = ['_id', 'publisher']
       Object.keys(req.body).forEach(key => {
         if (ignoreKeys.includes(key)) {
           return
