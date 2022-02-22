@@ -1699,6 +1699,7 @@
 							"script": {
 								"exec": [
 									"const jsonData = pm.response.json()\r",
+									"const scret = jsonData.secret\r",
 									"const id = jsonData._id\r",
 									"\r",
 									"pm.test(\"Hook id is presented\", function () {\r",
@@ -1708,6 +1709,10 @@
 									"\r",
 									"pm.test(\"Location header is returned\", function () {\r",
 									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"secret is encrypted\", function () {\r",
+									"    pm.expect(scret).not.be.equal(\"This is a secret\");\r",
 									"});\r",
 									"\r",
 									"if (id) {\r",
@@ -1734,7 +1739,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"action\": \"registerNewPublisher\",\r\n\t\"callback\": \"https://webhook.site/9b329878-e653-45ca-8aa5-f2f61f87def3\"\r\n}"
+							"raw": "{\r\n\t\"action\": \"registerNewPublisher\",\r\n    \"secret\": \"This is a secret\",\r\n\t\"callback\": \"https://webhook.site/9b329878-e653-45ca-8aa5-f2f61f87def3\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ROOT_URL}}/hooks",
@@ -1844,15 +1849,20 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"const scret = jsonData.secret\r",
+									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"const jsonData = pm.response.json()\r",
-									"\r",
 									"pm.test(\"Details are shown\", function () {\r",
 									"    pm.expect(jsonData.action).to.exist;\r",
 									"    pm.expect(jsonData.callback).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"secret is decrypted\", function () {\r",
+									"    pm.expect(scret).be.equal(\"This is a secret\");\r",
 									"});"
 								],
 								"type": "text/javascript"
