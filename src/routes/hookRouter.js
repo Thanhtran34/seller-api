@@ -22,7 +22,7 @@ router
 
 router
       .route('/:id')
-      .all(addAllow('GET, PUT, DELETE, HEAD, OPTIONS'))
+      .all(addAllow('GET, PUT, PATCH, DELETE, HEAD, OPTIONS'))
       .get(
         (req, res, next) => accController.authenticateJWT(req, res, next),
         (req, res, next) => hookController.getOneHook(req, res, next)
