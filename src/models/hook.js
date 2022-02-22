@@ -3,8 +3,10 @@ import mongoose from 'mongoose'
 import cachegoose from 'cachegoose'
 import validator from 'validator'
 import shortid from 'shortid'
+import Cryptr from 'cryptr'
 import { actions } from '../config/hookAction.js'
 
+const cryptr = new Cryptr('myTotalySecretKey')
 const actionValues = Object.keys(actions).map(key => actions[key])
 
 const schema = new mongoose.Schema(
@@ -26,6 +28,12 @@ const schema = new mongoose.Schema(
         message: `action/event must be one of [${actionValues.join()}]`,
       },
     },
+    secret: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 100
+    },
     callback: {
       type: String,
       required: true,
@@ -37,6 +45,11 @@ const schema = new mongoose.Schema(
   },
   { timestamps: true }
 )
+
+schema.pre('save', async function (next) {
+  this.secret = cryptr.encrypt(this.secret)
+  next()
+})
 
 schema.post('save', (doc, next) => {
   cachegoose.clearCache()

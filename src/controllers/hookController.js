@@ -1,10 +1,12 @@
 // hook controller
 import axios from 'axios'
+import Cryptr from 'cryptr'
 import createError from 'http-errors'
 import { Publisher } from '../models/publisher.js'
 import { LinkController } from './linkController.js'
 import { Hook } from '../models/hook.js'
 
+const cryptr = new Cryptr('myTotalySecretKey')
 const linkController = new LinkController()
 export class HookController {
   //Sends payload as JSON via POST all subscribers with
@@ -44,8 +46,8 @@ export class HookController {
       if (!publisher) {
         next(createError(403, 'Your token is not valid or expired'))
       }
-      const { action, callback } = req.body
-      let hook = new Hook({ action, callback, publisher: id })
+      const { action, callback, secret } = req.body
+      let hook = new Hook({ action, callback, publisher: id, secret})
       hook = await hook.save()
       const links = linkController.createLinkForHook(hook)
       hook = hook.toObject()
@@ -73,6 +75,7 @@ export class HookController {
       if (hook.publisher !== publisherId) {
         next(createError(403))
       }
+      hook.secret = cryptr.decrypt(hook.secret)
       return res.json({
         ...hook,
         _links: linkController.createLinkForHook(hook),
