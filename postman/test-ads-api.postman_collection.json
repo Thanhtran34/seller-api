@@ -1827,7 +1827,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"action\": \"createNewAd\",\r\n    \"secret\":\"new secret\"\r\n}"
+							"raw": "{\r\n\t\"action\": \"createNewAd\",\r\n    \"secret\":\"NEW secret\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ROOT_URL}}/hooks/{{HOOK_ID}}",
@@ -1862,7 +1862,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"secret is decrypted\", function () {\r",
-									"    pm.expect(scret).be.equal(\"This is a secret\");\r",
+									"    pm.expect(scret).be.equal(\"NEW secret\");\r",
 									"});"
 								],
 								"type": "text/javascript"
