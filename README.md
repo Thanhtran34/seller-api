@@ -18,6 +18,9 @@ npm test
 
 (requires that [newman cli](https://www.npmjs.com/package/newman) is installed through running `npm i newman`)
 
+
+[<img src="./img/newman.PNG" width="500" alt="Newman test with npm for API"/>](./img/newman.PNG)
+
 ## Author
 Tran Thi Kim Thanh <br />
 tt222kj
