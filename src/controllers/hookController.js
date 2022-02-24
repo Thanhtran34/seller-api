@@ -9,7 +9,7 @@ import { Hook } from '../models/hook.js'
 const cryptr = new Cryptr('myTotalySecretKey')
 const linkController = new LinkController()
 export class HookController {
-  //Sends payload as JSON via POST all subscribers with
+  //Sends payload as JSON via POST to all subscribers 
   async runHook(action, payload) {
     const hooks = await Hook.find();
     const promises = [];
