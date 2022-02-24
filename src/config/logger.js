@@ -1,4 +1,5 @@
 // Create personal logger with winston
+// https://www.npmjs.com/package/winston and reference from https://www.youtube.com/watch?v=A5YiqaQbsyI
 import { createLogger, format, transports } from 'winston'
 
 const { combine, timestamp, errors } = format
